@@ -2022,6 +2022,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -2038,7 +2039,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       customers: [],
       search: null,
       selectedEmp: null,
-      objDate: JSON.parse(localStorage.getItem("objDate")) ? JSON.parse(localStorage.getItem("objDate")) : {}
+      objDate: JSON.parse(localStorage.getItem("objDate")) ? JSON.parse(localStorage.getItem("objDate")) : {},
+      flag: false
     };
   },
   created: function created() {
@@ -2071,6 +2073,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.getSales();
     },
     objDate: function objDate() {
+      this.flag = true;
       this.getSales();
     }
   },
@@ -2085,7 +2088,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                _this2.flag = true;
+                _context2.next = 3;
                 return axios.get('/api/sales/all', {
                   params: {
                     search: _this2.search,
@@ -2095,12 +2099,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 2:
+              case 3:
                 _yield$axios$get = _context2.sent;
                 sales = _yield$axios$get.data;
                 _this2.sales = sales.data;
+                _this2.flag = false;
 
-              case 5:
+              case 7:
               case "end":
                 return _context2.stop();
             }
@@ -77578,7 +77583,9 @@ var render = function() {
                     }),
                     0
                   )
-                : _c("div", [_vm._v("Loading ... ")])
+                : _vm.flag
+                ? _c("div", [_vm._v("Loading ... ")])
+                : _c("div", [_vm._v("No Data Found")])
             ])
           ])
         ])

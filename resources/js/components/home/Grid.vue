@@ -58,7 +58,8 @@
                         <td>{{ sale.date | moment}}</td>
                     </tr>
                 </tbody>
-                <div v-else>Loading ... </div>
+                <div v-else-if="flag">Loading ... </div>
+                <div v-else>No Data Found</div>
             </table>
           </div>
         </div>
@@ -81,7 +82,8 @@
                 customers: [],
                 search: null,
                 selectedEmp: null,
-                objDate: JSON.parse(localStorage.getItem("objDate")) ? JSON.parse(localStorage.getItem("objDate")) : {}
+                objDate: JSON.parse(localStorage.getItem("objDate")) ? JSON.parse(localStorage.getItem("objDate")) : {},
+                flag:false
             }
         },
 
@@ -100,12 +102,14 @@
             },
 
             objDate(){
+                this.flag = true
                 this.getSales();
             }
         },
 
         methods: {
             async getSales() {
+                this.flag = true
                 const {data: sales} = await axios.get('/api/sales/all', {params:{
                     search: this.search,
                     employee_id: this.selectedEmp,
@@ -114,6 +118,7 @@
                 }})
 
                 this.sales = sales.data
+                this.flag = false
             },
 
             getEmployees() {
