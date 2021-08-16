@@ -2073,7 +2073,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.getSales();
     },
     objDate: function objDate() {
-      this.flag = true;
       this.getSales();
     }
   },

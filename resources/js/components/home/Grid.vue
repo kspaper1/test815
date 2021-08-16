@@ -102,7 +102,6 @@
             },
 
             objDate(){
-                this.flag = true
                 this.getSales();
             }
         },
