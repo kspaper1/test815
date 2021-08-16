@@ -2073,13 +2073,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   watch: {
     search: function search() {
-      this.getSales();
+      this.getSalesByCondition();
     },
     selectedEmp: function selectedEmp() {
-      this.getSales();
+      this.getSalesByCondition();
     },
     objDate: function objDate() {
-      this.getSales();
+      this.getSalesByCondition();
     }
   },
   methods: {
@@ -2094,14 +2094,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return axios.get('/api/sales/all', {
-                  params: {
-                    search: _this2.search,
-                    employee_id: _this2.selectedEmp,
-                    startDate: _this2.objDate.startDate,
-                    endDate: _this2.objDate.endDate
-                  }
-                });
+                return axios.get('/api/sales/all');
 
               case 2:
                 _yield$axios$get = _context2.sent;
@@ -2130,6 +2123,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       axios.get('/api/sales/customers').then(function (res) {
         _this4.customers = res.data.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getSalesByCondition: function getSalesByCondition() {
+      var _this5 = this;
+
+      axios.get('/api/sales/by', {
+        params: {
+          search: this.search,
+          employee_id: this.selectedEmp,
+          startDate: this.objDate.startDate,
+          endDate: this.objDate.endDate
+        }
+      }).then(function (res) {
+        _this5.sales = res.data.data;
       })["catch"](function (error) {
         console.log(error);
       });

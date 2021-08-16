@@ -25,3 +25,4 @@ Route::get('/sales/all', [SalesDataController::class, 'all']);
 Route::get('/sales/customers', [SalesDataController::class, 'customers']);
 Route::get('/sales/employees', [SalesDataController::class, 'employees']);
 Route::get('/sales/products', [SalesDataController::class, 'products']);
+Route::get('/sales/by', [SalesDataController::class, 'by']);

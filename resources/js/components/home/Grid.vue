@@ -95,27 +95,21 @@
 
         watch: {
             search() {
-                this.getSales();
+                this.getSalesByCondition();
             },
 
             selectedEmp() {
-                this.getSales();
+                this.getSalesByCondition();
             },
 
             objDate(){
-                this.getSales();
+                this.getSalesByCondition();
             }
         },
 
         methods: {
             async getSales() {
-                const {data: sales} = await axios.get('/api/sales/all', {params:{
-                    search: this.search,
-                    employee_id: this.selectedEmp,
-                    startDate: this.objDate.startDate,
-                    endDate: this.objDate.endDate,
-                }})
-
+                const {data: sales} = await axios.get('/api/sales/all')
                 this.sales = sales.data
             },
 
@@ -137,6 +131,22 @@
                 ).catch(error => {
                     console.log(error)
                 })
+            },
+
+            getSalesByCondition() {
+                axios.get('/api/sales/by', {params:{
+                    search: this.search,
+                    employee_id: this.selectedEmp,
+                    startDate: this.objDate.startDate,
+                    endDate: this.objDate.endDate,
+                }}).then(
+                    res => {
+                        this.sales = res.data.data
+                    }
+                ).catch(error => {
+                    console.log(error)
+                })
+
             }
         },
 

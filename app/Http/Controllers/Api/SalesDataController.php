@@ -15,6 +15,20 @@ class SalesDataController extends Controller
     public function all(Request $request) {
         $builder = Sale::query()->orderBy('date', 'ASC');
 
+        $sales = $builder->get();;
+
+        return SalesResource::collection($sales);
+    }
+
+    public function employees() {
+        $employees = Employee::all();
+
+        return response()->json($employees);
+    }
+
+    public function by(Request $request) {
+        $builder = Sale::query()->orderBy('date', 'ASC');
+
         if($search = $request->input('search', '')) {
             $like = '%'.$search.'%';
 
@@ -42,11 +56,5 @@ class SalesDataController extends Controller
         $sales = $builder->get();;
 
         return SalesResource::collection($sales);
-    }
-
-    public function employees() {
-        $employees = Employee::all();
-
-        return response()->json($employees);
     }
 }
