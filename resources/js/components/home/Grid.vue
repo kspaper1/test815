@@ -94,12 +94,10 @@
 
         watch: {
             search() {
-                this.flag = true
                 this.getSales();
             },
 
             selectedEmp() {
-                this.flag = true
                 this.getSales();
             },
 
