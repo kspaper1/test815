@@ -76674,17 +76674,14 @@ var render = function() {
                             }
                           }
                         },
-                        _vm._l(_vm.employees, function(employee) {
+                        _vm._l(_vm.employees, function(emp) {
                           return _c(
                             "option",
-                            {
-                              key: employee.id,
-                              domProps: { value: employee.id }
-                            },
+                            { key: emp.id, domProps: { value: emp.id } },
                             [
                               _vm._v(
                                 "\n                                              " +
-                                  _vm._s(employee.name) +
+                                  _vm._s(emp.name) +
                                   "\n                                          "
                               )
                             ]

@@ -23,8 +23,8 @@
                                                 class="form-select form-select-sm mt-1 mb-2" aria-label=".form-select-sm example"
                                             >
 
-                                            <option v-for="employee in employees" :key="employee.id" :value="employee.id">
-                                                {{ employee.name }}
+                                            <option v-for="emp in employees" :key="emp.id" :value="emp.id">
+                                                {{ emp.name }}
                                             </option>
                                             </select>
                                         </div>

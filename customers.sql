@@ -1,4 +1,13 @@
-
+CREATE TABLE IF NOT EXISTS customers (
+    `id` INT,
+    `first_name` VARCHAR(14) CHARACTER SET utf8,
+    `last_name` VARCHAR(22) CHARACTER SET utf8,
+    `full_name` VARCHAR(30) CHARACTER SET utf8,
+    `email` VARCHAR(38) CHARACTER SET utf8,
+    `gender` VARCHAR(6) CHARACTER SET utf8,
+    `street` VARCHAR(28) CHARACTER SET utf8,
+    `city` VARCHAR(31) CHARACTER SET utf8
+);
 INSERT INTO customers VALUES
     (1,'Reuben','Girard','Reuben Girard','rgirard0@cyberchimps.com','Male','6173 Forest Run Crossing','Kav√°la'),
     (2,'Thaxter','Sprackling','Thaxter Sprackling','tsprackling1@yellowbook.com','Male','4 Twin Pines Center','Ngangpo'),
