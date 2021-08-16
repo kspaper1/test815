@@ -2067,12 +2067,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   watch: {
     search: function search() {
+      this.flag = true;
       this.getSales();
     },
     selectedEmp: function selectedEmp() {
+      this.flag = true;
       this.getSales();
     },
     objDate: function objDate() {
+      this.flag = true;
       this.getSales();
     }
   },
