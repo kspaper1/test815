@@ -113,8 +113,7 @@
                     endDate: this.objDate.endDate,
                 }})
 
-                //this.sales = sales.data
-                console.log(this.objDate);
+                this.sales = sales.data
             },
 
             getEmployees() {

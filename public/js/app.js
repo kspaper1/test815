@@ -2098,8 +2098,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 2:
                 _yield$axios$get = _context2.sent;
                 sales = _yield$axios$get.data;
-                //this.sales = sales.data
-                console.log(_this2.objDate);
+                _this2.sales = sales.data;
 
               case 5:
               case "end":
