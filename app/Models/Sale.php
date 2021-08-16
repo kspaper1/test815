@@ -9,6 +9,19 @@ class Sale extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'invoiceId',
+        'product_name',
+        'date',
+        'sales_person',
+        'customer_name',
+        'customer_id',
+        'product_id',
+        'employee_id',
+        'city'
+    ];
+
     public function product() {
         return $this->belongsTo(Product::class);
     }
