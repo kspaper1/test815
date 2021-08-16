@@ -33,10 +33,9 @@
         },
 
         data(){
-            let startDate = '';
-            let endDate = '';
+
             return {
-                dateRange: { startDate, endDate },
+                dateRange: JSON.parse(localStorage.getItem("objDate")) ? JSON.parse(localStorage.getItem("objDate")) : {}
             }
 
         },

@@ -22,7 +22,7 @@
                                                 name="employee"
                                                 class="form-select form-select-sm mt-1 mb-2" aria-label=".form-select-sm example"
                                             >
-
+                                            <option value=""> - </option>
                                             <option v-for="emp in employees" :key="emp.id" :value="emp.id">
                                                 {{ emp.name }}
                                             </option>
@@ -49,19 +49,15 @@
                         <th scope="col">Date</th>
                     </tr>
                 </thead>
-                <tbody v-if="sales.length > 0">
-
-                    <tr  v-for="sale in sales" :key="sale.id">
+                <tbody>
+                    <tr v-for="sale in sales" :key="sale.id">
                         <th scope="row">{{ sale.invoiceId }}</th>
                         <td>{{ sale.product.name }}</td>
                         <td>{{ sale.employee.name }}</td>
                         <td>{{ sale.customer.full_name }}</td>
                         <td>{{ sale.date | moment}}</td>
                     </tr>
-
-
                 </tbody>
-                <div v-else>Loading ... </div>
             </table>
           </div>
         </div>
@@ -84,39 +80,44 @@
                 customers: [],
                 search: null,
                 selectedEmp: null,
-                objDate: {},
+                objDate: JSON.parse(localStorage.getItem("objDate")) ? JSON.parse(localStorage.getItem("objDate")) : {}
             }
         },
 
-        async created() {
-            await this.getSales();
+        created() {
+            this.getSales();
             this.getEmployees();
         },
 
         watch: {
-            async search() {
-                await this.getSales();
+            search() {
+                this.getSales();
             },
 
-            async selectedEmp() {
-                await this.getSales();
+            selectedEmp() {
+                this.getSales();
             },
 
-            async objDate(){
-                await this.getSales();
+            objDate(){
+                this.getSales();
             }
         },
 
         methods: {
-            async getSales() {
-                const {data: sales} = await axios.get('/api/sales/all', {params:{
+            getSales() {
+                console.log(this.objDate)
+                axios.get('/api/sales/all', {params:{
                     search: this.search,
                     employee_id: this.selectedEmp,
                     startDate: this.objDate.startDate,
                     endDate: this.objDate.endDate,
-                }})
-
-                this.sales = sales.data
+                }}).then(
+                    res => {
+                        this.sales = res.data.data
+                    }
+                ).catch(error => {
+                    console.log(error)
+                })
             },
 
             getEmployees() {

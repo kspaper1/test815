@@ -56,6 +56,10 @@
             }
         },
 
+        beforeCreate() {
+            localStorage.clear()
+        },
+
         created(){
             this.getSales();
         },
@@ -65,8 +69,15 @@
                 this.startFormatDate = moment(this.objDate.startDate).format('YYYY-MM-DD');
                 this.endFormatDate = moment(this.objDate.endDate).format('YYYY-MM-DD');
                 this.getSales();
+                localStorage.setItem('objDate', JSON.stringify(this.objDate))
             }
         },
+
+        mounted() {
+            if (localStorage.getItem("objDate")){
+                this.objDate = JSON.parse(localStorage.getItem("objDate"))
+                }
+            },
 
         methods: {
             getSales() {
@@ -74,15 +85,15 @@
                     params:{
                         startDate: this.startFormatDate,
                         endDate: this.endFormatDate,
-                        }
-                    }).then(
-                        res => {
-                            this.sales = res.data
-                        }).catch(error => {
-                            console.log(error)
-                        })
                     }
-                }
+                }).then(
+                    res => {
+                        this.sales = res.data
+                    }).catch(error => {
+                        console.log(error)
+                    })
+            }
+        }
 
         // async created(){
 

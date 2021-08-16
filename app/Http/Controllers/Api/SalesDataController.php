@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 class SalesDataController extends Controller
 {
     public function all(Request $request) {
-        $builder = Sale::query()->orderBy('date', 'ASC');
+        $builder = Sale::query()->where('date', '>=', Carbon::now()->subMonths(15)->toDateTimeString())->orderBy('date', 'ASC');
 
         if($search = $request->input('search', '')) {
             $like = '%'.$search.'%';
