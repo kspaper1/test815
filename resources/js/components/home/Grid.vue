@@ -49,7 +49,7 @@
                         <th scope="col">Date</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody v-if="sales.length > 0">
                     <tr v-for="sale in sales" :key="sale.id">
                         <th scope="row">{{ sale.invoiceId }}</th>
                         <td>{{ sale.product.name }}</td>
@@ -58,6 +58,7 @@
                         <td>{{ sale.date | moment}}</td>
                     </tr>
                 </tbody>
+                <div v-else>Loading ... </div>
             </table>
           </div>
         </div>
@@ -84,8 +85,8 @@
             }
         },
 
-        created() {
-            this.getSales();
+        async created() {
+            await this.getSales();
             this.getEmployees();
         },
 
@@ -104,20 +105,16 @@
         },
 
         methods: {
-            getSales() {
-                console.log(this.objDate)
-                axios.get('/api/sales/all', {params:{
+            async getSales() {
+                const {data: sales} = await axios.get('/api/sales/all', {params:{
                     search: this.search,
                     employee_id: this.selectedEmp,
                     startDate: this.objDate.startDate,
                     endDate: this.objDate.endDate,
-                }}).then(
-                    res => {
-                        this.sales = res.data.data
-                    }
-                ).catch(error => {
-                    console.log(error)
-                })
+                }})
+
+                //this.sales = sales.data
+                console.log(this.objDate);
             },
 
             getEmployees() {
