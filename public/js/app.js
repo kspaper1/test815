@@ -2073,35 +2073,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   watch: {
     search: function search() {
-      this.getSalesByCondition();
-    },
-    selectedEmp: function selectedEmp() {
-      this.getSalesByCondition();
-    },
-    objDate: function objDate() {
-      this.getSalesByCondition();
-    }
-  },
-  methods: {
-    getSales: function getSales() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var _yield$axios$get, sales;
-
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return axios.get('/api/sales/all');
+                return _this2.getSales();
 
               case 2:
-                _yield$axios$get = _context2.sent;
-                sales = _yield$axios$get.data;
-                _this2.sales = sales.data;
-
-              case 5:
               case "end":
                 return _context2.stop();
             }
@@ -2109,36 +2091,93 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    getEmployees: function getEmployees() {
+    selectedEmp: function selectedEmp() {
       var _this3 = this;
 
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.getSales();
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    objDate: function objDate() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return _this4.getSales();
+
+              case 2:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    }
+  },
+  methods: {
+    getSales: function getSales() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        var _yield$axios$get, sales;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return axios.get('/api/sales/all', {
+                  params: {
+                    search: _this5.search,
+                    employee_id: _this5.selectedEmp,
+                    startDate: _this5.objDate.startDate,
+                    endDate: _this5.objDate.endDate
+                  }
+                });
+
+              case 2:
+                _yield$axios$get = _context5.sent;
+                sales = _yield$axios$get.data;
+                _this5.sales = sales.data;
+
+              case 5:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+    getEmployees: function getEmployees() {
+      var _this6 = this;
+
       axios.get('/api/sales/employees').then(function (res) {
-        _this3.employees = res.data;
+        _this6.employees = res.data;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getCustomers: function getCustomers() {
-      var _this4 = this;
+      var _this7 = this;
 
       axios.get('/api/sales/customers').then(function (res) {
-        _this4.customers = res.data.data;
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
-    getSalesByCondition: function getSalesByCondition() {
-      var _this5 = this;
-
-      axios.get('/api/sales/by', {
-        params: {
-          search: this.search,
-          employee_id: this.selectedEmp,
-          startDate: this.objDate.startDate,
-          endDate: this.objDate.endDate
-        }
-      }).then(function (res) {
-        _this5.sales = res.data.data;
+        _this7.customers = res.data.data;
       })["catch"](function (error) {
         console.log(error);
       });

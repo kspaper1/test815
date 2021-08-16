@@ -94,22 +94,28 @@
         },
 
         watch: {
-            search() {
-                this.getSalesByCondition();
+            async search() {
+                await this.getSales();
             },
 
-            selectedEmp() {
-                this.getSalesByCondition();
+            async selectedEmp() {
+                await this.getSales();
             },
 
-            objDate(){
-                this.getSalesByCondition();
+            async objDate(){
+                await this.getSales();
             }
         },
 
         methods: {
             async getSales() {
-                const {data: sales} = await axios.get('/api/sales/all')
+                const {data: sales} = await axios.get('/api/sales/all', {params:{
+                    search: this.search,
+                    employee_id: this.selectedEmp,
+                    startDate: this.objDate.startDate,
+                    endDate: this.objDate.endDate,
+                }})
+
                 this.sales = sales.data
             },
 
@@ -131,22 +137,6 @@
                 ).catch(error => {
                     console.log(error)
                 })
-            },
-
-            getSalesByCondition() {
-                axios.get('/api/sales/by', {params:{
-                    search: this.search,
-                    employee_id: this.selectedEmp,
-                    startDate: this.objDate.startDate,
-                    endDate: this.objDate.endDate,
-                }}).then(
-                    res => {
-                        this.sales = res.data.data
-                    }
-                ).catch(error => {
-                    console.log(error)
-                })
-
             }
         },
 
