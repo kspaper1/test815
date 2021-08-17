@@ -13,15 +13,15 @@ use Illuminate\Http\Request;
 class SalesDataController extends Controller
 {
     public function all(Request $request) {
-        $builder = Sale::query()->where('date', '>=', Carbon::now()->subMonths(15)->toDateTimeString())->orderBy('date', 'ASC');
+        $temp = \Cache::get('sales');
+
+        $builder = Sale::query()->orderBy('date', 'ASC');
 
         if($search = $request->input('search', '')) {
             $like = '%'.$search.'%';
 
-            $builder->where(function($query) use ($like) {
-                $query->whereHas('customer', function($query) use ($like) {
-                    $query->where('full_name', 'like', $like);
-                });
+            $builder->whereHas('customer', function($query) use ($like) {
+                $query->where('full_name', 'like', $like);
             });
         }
 
@@ -39,7 +39,14 @@ class SalesDataController extends Controller
             $builder->where('date','<=',$to);
         }
 
-        $sales = $builder->get();;
+        if(is_array($temp) && count($temp) > 0 )
+        {
+            $sales = $temp;
+        }
+
+        $sales = $builder->get();
+
+        \Cache::forget('sales');
 
         return SalesResource::collection($sales);
     }

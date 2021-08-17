@@ -2068,9 +2068,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   watch: {
     search: function search() {
+      this.flag = true;
       this.getSales();
     },
     selectedEmp: function selectedEmp() {
+      this.flag = true;
       this.getSales();
     },
     objDate: function objDate() {
@@ -2204,9 +2206,9 @@ __webpack_require__.r(__webpack_exports__);
         pointBackgroundColor: "#88E5ED",
         backgroundColor: "#88E5ED"
       },
-      objDate: {},
-      startFormatDate: '',
-      endFormatDate: ''
+      objDate: {} // startFormatDate:'',
+      // endFormatDate: '',
+
     };
   },
   beforeCreate: function beforeCreate() {
@@ -2217,8 +2219,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     objDate: function objDate() {
-      this.startFormatDate = moment__WEBPACK_IMPORTED_MODULE_3___default()(this.objDate.startDate).format('YYYY-MM-DD');
-      this.endFormatDate = moment__WEBPACK_IMPORTED_MODULE_3___default()(this.objDate.endDate).format('YYYY-MM-DD');
+      // this.startFormatDate = moment(this.objDate.startDate).format('YYYY-MM-DD');
+      // this.endFormatDate = moment(this.objDate.endDate).format('YYYY-MM-DD');
       this.getSales();
       localStorage.setItem('objDate', JSON.stringify(this.objDate));
     }
@@ -2234,8 +2236,8 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/api/sales', {
         params: {
-          startDate: this.startFormatDate,
-          endDate: this.endFormatDate
+          startDate: this.objDate.startDate,
+          endDate: this.objDate.endDate
         }
       }).then(function (res) {
         _this.sales = res.data;

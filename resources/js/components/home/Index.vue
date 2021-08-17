@@ -50,8 +50,8 @@
                     backgroundColor:"#88E5ED",
                 },
                 objDate: {},
-                startFormatDate:'',
-                endFormatDate: '',
+                // startFormatDate:'',
+                // endFormatDate: '',
 
             }
         },
@@ -66,8 +66,8 @@
 
         watch: {
             objDate(){
-                this.startFormatDate = moment(this.objDate.startDate).format('YYYY-MM-DD');
-                this.endFormatDate = moment(this.objDate.endDate).format('YYYY-MM-DD');
+                // this.startFormatDate = moment(this.objDate.startDate).format('YYYY-MM-DD');
+                // this.endFormatDate = moment(this.objDate.endDate).format('YYYY-MM-DD');
                 this.getSales();
                 localStorage.setItem('objDate', JSON.stringify(this.objDate))
             }
@@ -83,8 +83,8 @@
             getSales() {
                 axios.get('/api/sales', {
                     params:{
-                        startDate: this.startFormatDate,
-                        endDate: this.endFormatDate,
+                        startDate: this.objDate.startDate,
+                        endDate: this.objDate.endDate,
                     }
                 }).then(
                     res => {
