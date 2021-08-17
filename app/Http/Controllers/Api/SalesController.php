@@ -27,7 +27,7 @@ class SalesController extends Controller
         $data = $builder->orderBy('date', 'ASC')->get();
         $sales = $builder->groupBy('date')->select('date', DB::raw('count(*) as total'))->get();
 
-        $expiredAt = now()->addMinute(1);
+        $expiredAt = now()->addMinute(5);
         \Cache::put('sales', ['startDate' => $startDate, 'endDate' => $endDate, 'data' => $data], $expiredAt);
 
         return response()->json($sales);
