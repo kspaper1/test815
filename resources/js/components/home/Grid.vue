@@ -88,28 +88,30 @@
         },
 
         async created() {
+            this.flag = true
             await this.getSales();
             this.getEmployees();
         },
 
         watch: {
-            search() {
-                this.getSales();
-            },
-
-            selectedEmp() {
-                this.getSales();
-            },
-
-            objDate(){
+            async search() {
                 this.flag = true
-                this.getSales();
+                await this.getSales();
+            },
+
+            async selectedEmp() {
+                this.flag = true
+                await this.getSales();
+            },
+
+            async objDate(){
+                this.flag = true
+                await this.getSales();
             }
         },
 
         methods: {
             async getSales() {
-                this.flag = true
                 const {data: sales} = await axios.get('/api/sales/all', {params:{
                     search: this.search,
                     employee_id: this.selectedEmp,
