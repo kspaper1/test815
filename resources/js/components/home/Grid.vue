@@ -94,19 +94,17 @@
         },
 
         watch: {
-            async search() {
-                this.flag = true
-                await this.getSales();
+            search() {
+                this.getSales();
             },
 
-            async selectedEmp() {
-                this.flag = true
-                await this.getSales();
+            selectedEmp() {
+                this.getSales();
             },
 
-            async objDate(){
+            objDate(){
                 this.flag = true
-                await this.getSales();
+                this.getSales();
             }
         },
 
